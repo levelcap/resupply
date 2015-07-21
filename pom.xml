@@ -158,7 +158,7 @@
     </dependencies>
 
     <properties>
-        <start-class>com.brave.chardb.Application</start-class>
+        <start-class>com.brave.resupply.Application</start-class>
     </properties>
 
     <build>
