@@ -8,14 +8,14 @@ import java.util.Set;
 public class Order {
 	@Id
 	private String id;
-	private Date date;
+	private String date;
 	private String userId;
     private Set<ItemRequest> requestedItems;
 
 	public Order() {
 	}
 
-	public Order(Date date, String userId, Set<ItemRequest> requestedItems) {
+	public Order(String date, String userId, Set<ItemRequest> requestedItems) {
 		this.date = date;
 		this.userId = userId;
         this.requestedItems = requestedItems;
@@ -29,11 +29,11 @@ public class Order {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
