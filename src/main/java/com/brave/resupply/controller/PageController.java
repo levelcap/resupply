@@ -29,4 +29,10 @@ public class PageController extends BaseController {
             return "login";
         }
     }
+
+    @RequestMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("loggedIn", isLoggedIn());
+        return "login";
+    }
 }
