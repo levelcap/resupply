@@ -5,15 +5,15 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
-public class CharDBRole extends User {
+public class ResupplyRole extends User {
 	private static final long serialVersionUID = -7379590624723451244L;
 	private String id;
 	private int role;
 	
-	public CharDBRole(String email, String password, boolean enabled,
-                      boolean accountNonExpired, boolean credentialsNonExpired,
-                      boolean accountNonLocked,
-                      Collection<? extends GrantedAuthority> authorities) {
+	public ResupplyRole(String email, String password, boolean enabled,
+                        boolean accountNonExpired, boolean credentialsNonExpired,
+                        boolean accountNonLocked,
+                        Collection<? extends GrantedAuthority> authorities) {
 		super(email, password, enabled, accountNonExpired, credentialsNonExpired,
 				accountNonLocked, authorities);
 	}
