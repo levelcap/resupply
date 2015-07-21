@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character Center - Home</title>
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css'/>
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'/>
+    <link rel='stylesheet prefetch' href='/css/main.css'/>
+    <link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Metamorphous' rel='stylesheet' type='text/css'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular-sanitize.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular.min.js'></script>
+    <script src='https://code.jquery.com/jquery-1.11.2.min.js'></script>
+    <script src='https://code.jquery.com/ui/1.11.2/jquery-ui.min.js'></script>
+    <link href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/js/ng-imgur.min.js"></script>
+
+    <script src="/js/main.js"></script>
+    <link rel="shortcut icon" href="/images/favicon.png"/>
+</head>
+
+<body>
+<div class="page">
+    <img id="leftTape" src="/images/tape-left.png"/>
+    <img id="rightTape" src="/images/tape-right.png"/>
+    <header th:replace="fragments/header :: header"></header>
+
+    <div id="featuredCharacter">
+        <h2>Featured Character</h2>
+        <section id="characterSection">
+            <div class="subsection" id="basicInfo">
+                <div id="name">
+                    <span th:text="${character.name}"></span>
+                </div>
+                <img th:attr="src=${character.url}"/>
+
+                <div class="infoline">
+                    <label>Group:</label> <span th:text="${character.group}"></span>
+                </div>
+                <div class="infoline">
+                    <label>Time:</label> <span th:text="${character.timePeriod}"></span>
+                </div>
+                <div class="infoline">
+                    <label>Genre:</label> <span th:text="${character.genre}"></span>
+                </div>
+            </div>
+
+            <div class="subsection" id="details">
+                <div class="container app">
+                    <div id="description" th:utext="${character.description}"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="homediv">
+        <div class="browseSub">
+            <h2>Search</h2>
+
+            <div class="infoline"><label>Search Characters: </label><span><input id="nameSearch"/></span></div>
+            <div class="infoline"><label>Search Locations: </label><span><input id="locationSearch"/></span></div>
+            <div class="infoline"><label>Search Settings: </label><span><input id="settingSearch"/></span></div>
+        </div>
+        <div class="browseSub">
+            <h2>Browse</h2>
+
+            <div class="infoline"><span><a href="/browse/genre">Browse By Genre</a></span></div>
+            <div class="infoline"><span><a href="/browse/time">Browse By Time Period</a></span></div>
+        </div>
+    </div>
+    <img id="pen2" src="/images/penspatter2.png"/>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#nameSearch").autocomplete({
+            minLength: 1,
+            delay: 500,
+            //define callback to format results
+            source: function (request, response) {
+                $.getJSON("/search/character/name/" + request.term, function (result) {
+                    response($.map(result, function (item) {
+                        return {
+                            label: item.name + " by " + item.user.username,
+                            value: item.name,
+                            tag_url: "/char/" + item.id
+                        }
+                    }));
+                });
+            },
+
+            select: function (event, ui) {
+                if (ui.item) {
+                    event.preventDefault();
+                    window.location.href = ui.item.tag_url;
+                }
+            }
+        });
+
+        $("#locationSearch").autocomplete({
+            minLength: 1,
+            delay: 500,
+            //define callback to format results
+            source: function (request, response) {
+                $.getJSON("/search/location/name/" + request.term, function (result) {
+                    response($.map(result, function (item) {
+                        return {
+                            label: item.name + " by " + item.user.username,
+                            value: item.name,
+                            tag_url: "/l/" + item.id
+                        }
+                    }));
+                });
+            },
+
+            select: function (event, ui) {
+                if (ui.item) {
+                    event.preventDefault();
+                    window.location.href = ui.item.tag_url;
+                }
+            }
+        });
+
+        $("#settingSearch").autocomplete({
+            minLength: 1,
+            delay: 500,
+            //define callback to format results
+            source: function (request, response) {
+                $.getJSON("/search/setting/name/" + request.term, function (result) {
+                    response($.map(result, function (item) {
+                        return {
+                            label: item.name + " by " + item.user.username,
+                            value: item.name,
+                            tag_url: "/s/" + item.id
+                        }
+                    }));
+                });
+            },
+
+            select: function (event, ui) {
+                if (ui.item) {
+                    event.preventDefault();
+                    window.location.href = ui.item.tag_url;
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

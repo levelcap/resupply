@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>CharDB - Login</title>
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css'/>
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'/>
+    <link rel='stylesheet prefetch' href='/css/main.css'/>
+    <link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Metamorphous' rel='stylesheet' type='text/css'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular-sanitize.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular.min.js'></script>
+    <script type="text/javascript" src="/js/ng-imgur.min.js"></script>
+
+    <script src="/js/main.js"></script>
+    <link rel="shortcut icon" href="/images/favicon.png"/>
+</head>
+<body>
+<div class="page">
+    <img id="leftTape" src="/images/tape-left.png"/>
+    <img id="rightTape" src="/images/tape-right.png"/>
+    <header th:replace="fragments/header :: header"></header>
+
+    <section id="loginForm">
+        <div class="loginWarn" th:if="${param.error}">Invalid username and password.</div>
+        <div class="loginWarn" th:if="${param.logout}">You have been logged out.</div>
+        <div class="loginWarn" id="confirmationError"></div>
+        <div id="loginDiv">
+            <form th:action="@{/login}" method="post">
+                <div>
+                    <input type="text" name="username" placeholder="Email" class="longInput handwrite"/>
+                </div>
+                <div>
+                    <input type="password" name="password" placeholder="Password" class="longInput handwrite"/>
+                </div>
+                <div>
+                    <input type="submit" value="Login" id="loginButton" class="handwrite"/>
+                </div>
+            </form>
+        </div>
+        <section id="loginLinks">
+            <span><a href="/forgotPassword">Forgot password?</a></span>
+            <span><a href="/register">Need to register?</a></span>
+            <br/>
+        </section>
+    </section>
+    <img id="pen" src="/images/penspatter.png"/>
+</div>
+</body>
+</html>
