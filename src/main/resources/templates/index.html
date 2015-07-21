@@ -1,149 +1,154 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Character Center - Home</title>
-    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css'/>
-    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'/>
-    <link rel='stylesheet prefetch' href='/css/main.css'/>
-    <link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'/>
-    <link href='https://fonts.googleapis.com/css?family=Metamorphous' rel='stylesheet' type='text/css'/>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular-sanitize.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular.min.js'></script>
-    <script src='https://code.jquery.com/jquery-1.11.2.min.js'></script>
-    <script src='https://code.jquery.com/ui/1.11.2/jquery-ui.min.js'></script>
-    <link href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="/js/ng-imgur.min.js"></script>
-
-    <script src="/js/main.js"></script>
-    <link rel="shortcut icon" href="/images/favicon.png"/>
+    <title>Resupply Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 
 <body>
-<div class="page">
-    <img id="leftTape" src="/images/tape-left.png"/>
-    <img id="rightTape" src="/images/tape-right.png"/>
-    <header th:replace="fragments/header :: header"></header>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Project name</a>
 
-    <div id="featuredCharacter">
-        <h2>Featured Character</h2>
-        <section id="characterSection">
-            <div class="subsection" id="basicInfo">
-                <div id="name">
-                    <span th:text="${character.name}"></span>
-                </div>
-                <img th:attr="src=${character.url}"/>
-
-                <div class="infoline">
-                    <label>Group:</label> <span th:text="${character.group}"></span>
-                </div>
-                <div class="infoline">
-                    <label>Time:</label> <span th:text="${character.timePeriod}"></span>
-                </div>
-                <div class="infoline">
-                    <label>Genre:</label> <span th:text="${character.genre}"></span>
-                </div>
+            <div class="nav-collapse collapse">
+                <p class="navbar-text pull-right">
+                    Logged in as <a href="#" class="navbar-link">Username</a>
+                </p>
+                <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
             </div>
-
-            <div class="subsection" id="details">
-                <div class="container app">
-                    <div id="description" th:utext="${character.description}"></div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <div class="homediv">
-        <div class="browseSub">
-            <h2>Search</h2>
-
-            <div class="infoline"><label>Search Characters: </label><span><input id="nameSearch"/></span></div>
-            <div class="infoline"><label>Search Locations: </label><span><input id="locationSearch"/></span></div>
-            <div class="infoline"><label>Search Settings: </label><span><input id="settingSearch"/></span></div>
-        </div>
-        <div class="browseSub">
-            <h2>Browse</h2>
-
-            <div class="infoline"><span><a href="/browse/genre">Browse By Genre</a></span></div>
-            <div class="infoline"><span><a href="/browse/time">Browse By Time Period</a></span></div>
+            <!--/.nav-collapse -->
         </div>
     </div>
-    <img id="pen2" src="/images/penspatter2.png"/>
 </div>
 
-<script type="text/javascript">
-    $(function () {
-        $("#nameSearch").autocomplete({
-            minLength: 1,
-            delay: 500,
-            //define callback to format results
-            source: function (request, response) {
-                $.getJSON("/search/character/name/" + request.term, function (result) {
-                    response($.map(result, function (item) {
-                        return {
-                            label: item.name + " by " + item.user.username,
-                            value: item.name,
-                            tag_url: "/char/" + item.id
-                        }
-                    }));
-                });
-            },
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Sidebar</li>
+                    <li class="active"><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="nav-header">Sidebar</li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="nav-header">Sidebar</li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div>
+            <!--/.well -->
+        </div>
+        <!--/span-->
+        <div class="span9">
+            <div class="hero-unit">
+                <h1>Hello, world!</h1>
 
-            select: function (event, ui) {
-                if (ui.item) {
-                    event.preventDefault();
-                    window.location.href = ui.item.tag_url;
-                }
-            }
-        });
+                <p>This is a template for a simple marketing or informational website. It includes a large callout
+                    called the hero unit and three supporting pieces of content. Use it as a starting point to create
+                    something more unique.</p>
 
-        $("#locationSearch").autocomplete({
-            minLength: 1,
-            delay: 500,
-            //define callback to format results
-            source: function (request, response) {
-                $.getJSON("/search/location/name/" + request.term, function (result) {
-                    response($.map(result, function (item) {
-                        return {
-                            label: item.name + " by " + item.user.username,
-                            value: item.name,
-                            tag_url: "/l/" + item.id
-                        }
-                    }));
-                });
-            },
+                <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">
+                    <h2>Heading</h2>
 
-            select: function (event, ui) {
-                if (ui.item) {
-                    event.preventDefault();
-                    window.location.href = ui.item.tag_url;
-                }
-            }
-        });
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+                        magna mollis euismod. Donec sed odio dui. </p>
 
-        $("#settingSearch").autocomplete({
-            minLength: 1,
-            delay: 500,
-            //define callback to format results
-            source: function (request, response) {
-                $.getJSON("/search/setting/name/" + request.term, function (result) {
-                    response($.map(result, function (item) {
-                        return {
-                            label: item.name + " by " + item.user.username,
-                            value: item.name,
-                            tag_url: "/s/" + item.id
-                        }
-                    }));
-                });
-            },
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                </div>
+                <!--/span-->
+                <div class="span4">
+                    <h2>Heading</h2>
 
-            select: function (event, ui) {
-                if (ui.item) {
-                    event.preventDefault();
-                    window.location.href = ui.item.tag_url;
-                }
-            }
-        });
-    });
-</script>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+                        magna mollis euismod. Donec sed odio dui. </p>
+
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                </div>
+                <!--/span-->
+                <div class="span4">
+                    <h2>Heading</h2>
+
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+                        magna mollis euismod. Donec sed odio dui. </p>
+
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                </div>
+                <!--/span-->
+            </div>
+            <!--/row-->
+            <div class="row-fluid">
+                <div class="span4">
+                    <h2>Heading</h2>
+
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+                        magna mollis euismod. Donec sed odio dui. </p>
+
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                </div>
+                <!--/span-->
+                <div class="span4">
+                    <h2>Heading</h2>
+
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+                        magna mollis euismod. Donec sed odio dui. </p>
+
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                </div>
+                <!--/span-->
+                <div class="span4">
+                    <h2>Heading</h2>
+
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+                        magna mollis euismod. Donec sed odio dui. </p>
+
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                </div>
+                <!--/span-->
+            </div>
+            <!--/row-->
+        </div>
+        <!--/span-->
+    </div>
+    <!--/row-->
+
+    <hr>
+
+    <footer>
+        <p>&copy; Company 2013</p>
+    </footer>
+
+</div>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
