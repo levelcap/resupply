@@ -17,7 +17,11 @@ public class PageController extends BaseController {
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("loggedIn", isLoggedIn());
-        return "index";
+        if (isLoggedIn()) {
+            return "index";
+        } else {
+            return "login";
+        }
     }
 
     @RequestMapping("/new")
