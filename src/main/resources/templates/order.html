@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Resupply Manager</title>
+<title>Resupply Manager - Place Resupply Order</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
@@ -39,25 +39,21 @@
 		<!-- /.container-fluid -->
 	</nav>
 	<div class="container" ng-app="resupplyApp">
-		<section id="itemSection" ng-controller="ItemController">
-			<div ng-repeat="item in items">
-				<input ng-model="item.name" type="text" /> <input ng-model="item.description" type="text" />
-				<input name="sizeTypesInput" ng-model="item.sizeTypes" ng-list="," />
+		<section id="itemSection" ng-controller="OrderController">
+			<div>Resupply Order for {{order.date}}</div>
+			<div ng-repeat="item in order.requestedItems">
+				<input ng-model="item.number"/> {{item.item.name}}
 				<input type="checkbox" ng-model="item.available" />
-				<span class="addBtn" ng-if='$last' ng-click='add()'>+ Add Item</span>
+				<select ng-model="item.sizeType" ng-options="sizeType in item.item.sizeTypes"></select>
 			</div>
 			<br/>
 			<span class="addBtn" ng-click='save()'>Save Items</span>
 		</section>
 	</div>
-
 	<hr />
-
 	<footer>
 		<p>&copy; Brave Studios 2015</p>
 	</footer>
-
-
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

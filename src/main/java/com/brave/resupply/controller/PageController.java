@@ -24,6 +24,16 @@ public class PageController extends BaseController {
         }
     }
 
+    @RequestMapping("/items")
+    public String items(Model model) {
+        model.addAttribute("loggedIn", isLoggedIn());
+        if (isLoggedIn()) {
+            return "items";
+        } else {
+            return "login";
+        }
+    }
+    
     @RequestMapping("/new")
     public String newCharacter(Model model) {
         model.addAttribute("loggedIn", isLoggedIn());

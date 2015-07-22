@@ -11,6 +11,7 @@ public class Order {
 	private String date;
 	private String userId;
     private Set<ItemRequest> requestedItems;
+    private boolean filled = false;
 
 	public Order() {
 	}
@@ -19,6 +20,7 @@ public class Order {
 		this.date = date;
 		this.userId = userId;
         this.requestedItems = requestedItems;
+        this.filled = false;
 	}
 
     public String getId() {
@@ -60,6 +62,14 @@ public class Order {
     public void removeItemRequest(ItemRequest item) {
         this.requestedItems.remove(item);
     }
+    
+    public boolean isFilled() {
+    	return filled;
+    }
+    
+    public void setFilled(boolean filled) {
+    	this.filled = filled;
+    }
 
     @Override
     public String toString() {
@@ -68,6 +78,7 @@ public class Order {
                 ", date=" + date +
                 ", userId=" + userId +
                 ", requestedItems=" + requestedItems +
+                ", filled=" + filled +
                 '}';
     }
 }
