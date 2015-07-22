@@ -28,8 +28,8 @@ public class EmailService {
         List<NameValuePair> headers = new ArrayList<NameValuePair>();
         headers.add(new NameValuePair("HEADER", "test"));
 
-        PostmarkMessage message = new PostmarkMessage(userEmail,
-                "resupply-reminder@cloverfoodlab.com",
+        PostmarkMessage message = new PostmarkMessage("resupply-reminder@cloverfoodlab.com",
+                userEmail,
                 "resupply-reminder@cloverfoodlab.com",
                 null,
                 "Resupply Reminder",
@@ -52,11 +52,11 @@ public class EmailService {
         headers.add(new NameValuePair("HEADER", "test"));
 
         PostmarkMessage message = new PostmarkMessage("cohen.davids@gmail.com",
-                "resupply-reminder@cloverfoodlab.com",
-                "resupply-reminder@cloverfoodlab.com",
+                "cohen.davids@gmail.com",
+                "cohen.davids@gmail.com",
                 null,
                 order.getDate() + " Resupply Order Submitted by " + user.getEmail() + " at " + user.getLocation(),
-                order.toString(),
+                "Resupply order goes here",
                 false,
                 null,
                 headers);

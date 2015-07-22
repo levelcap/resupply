@@ -40,8 +40,12 @@
 	width: 15%;
 }
 
-input[type='checkbox'] {
+#itemSection input[type='checkbox'] {
   width: 20px !important;
+}
+
+#orderSection td {
+    margin-left: 5px;
 }
 
 .addBtn {
