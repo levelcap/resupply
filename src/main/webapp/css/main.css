@@ -48,11 +48,15 @@
     padding-left: 15px;
 }
 
-.orderDisplay h4 {
-    padding: 10px;
-    margin: 0px;
+.orderDisplay .orderDisplayHeader {
     background-color: #337ab7;
     color: white;
+}
+
+.orderDisplay h4 {
+    display: inline-block;
+    padding: 10px;
+    margin: 0px;
 }
 
 .orderDisplay {
@@ -74,6 +78,10 @@
 	padding: 5px 10px 5px 10px;
 	margin-left: 5px;
 	cursor: pointer;
+}
+
+.green {
+    background-color: #007F00 !important;
 }
 
 .addBtn:hover {
