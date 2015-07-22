@@ -88,6 +88,11 @@ resupplyApp.controller('ManageOrderController', function ($scope, $http, $sce) {
                 alert("Problem saving resupply statuses");
             });
     }
+
+
+    $scope.singleSave = function (order) {
+        console.log(order);
+    }
 });
 
 resupplyApp.controller('SettingController', function ($scope, $http, $sce) {

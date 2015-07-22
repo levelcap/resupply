@@ -42,10 +42,10 @@
 </nav>
 <div class="container" ng-app="resupplyApp">
     <section id="orderSection" ng-controller="ManageOrderController">
-        <h2>Resupply Orders for {{orders[0].date}}</h2> <span class="addBtn" ng-click='save()'>Save Resupply Order Statuses</span>
         <section class="orderDisplay" ng-repeat="order in orders">
             <div class="orderDisplayHeader">
                 <h4>Resupply for {{order.user.location}} submitted by {{order.user.email}}</h4>
+                <span class="addBtn green" ng-click='order.filled = !order.filled; saveSingle(order);'>{{order.filled | iif : "Filled" : "Unfilled"}}</span>
             </div>
             <div>
                 <table>
