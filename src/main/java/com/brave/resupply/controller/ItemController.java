@@ -3,6 +3,7 @@ package com.brave.resupply.controller;
 import com.brave.resupply.model.Item;
 import com.brave.resupply.repository.ItemRepository;
 import com.brave.resupply.repository.UserRepository;
+import com.brave.resupply.services.OrderService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -19,12 +20,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/item")
 public class ItemController extends BaseController {
-
-	@Autowired
-	private UserRepository userRepository;
-
 	@Autowired
 	private ItemRepository itemRepository;
+
+    @Autowired
+    private OrderService orderService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
@@ -59,7 +59,7 @@ public class ItemController extends BaseController {
 				}
 			}
 			itemRepository.save(items);
-
+            orderService.updateItemsForOrdersToday(items);
 			return new ResponseEntity<List<Item>>(items, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<List<Item>>(HttpStatus.UNAUTHORIZED);
