@@ -31,7 +31,12 @@
 }
 
 .container {
-	padding: 20px;	
+	padding: 10px;	
+}
+
+#itemSection input {
+	margin-top: 10px;
+	margin-left: 5px;
 }
 
 .addBtn {
