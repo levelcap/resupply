@@ -53,9 +53,9 @@
                         <td><b>Par</b></td>
                     </tr>
                     <tr ng-repeat="item in order.requestedItems">
-                        <td>{{item.number}}</td>
-                        <td>{{item.item.name}}</td>
-                        <td>{{item.sizeType}}</td>
+                        <td ng-if='item.number > 0'>{{item.number}}</td>
+                        <td ng-if='item.number > 0'>{{item.item.name}}</td>
+                        <td ng-if='item.number > 0'>{{item.sizeType}}</td>
                     </tr>
                 </table>
             </div>
