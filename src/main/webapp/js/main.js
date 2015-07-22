@@ -58,6 +58,7 @@ resupplyApp.controller('OrderController', function ($scope, $http, $sce) {
         var saveOrder = $scope.order;
         $http.post('/api/order/', saveOrder).
             success(function (data, status, headers, config) {
+                $scope.order.sent = true;
             	alert("Resupply sent");
             }).
             error(function (data, status, headers, config) {
@@ -170,5 +171,11 @@ resupplyApp.controller('UserController', function ($scope, $http, $sce) {
             	}
             });
     }
+});
+
+resupplyApp.filter('iif', function () {
+    return function(input, trueValue, falseValue) {
+        return input ? trueValue : falseValue;
+    };
 });
 

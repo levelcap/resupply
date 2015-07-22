@@ -56,7 +56,7 @@
                 </tr>
             </table>
 			<br/>
-			<span class="addBtn" ng-click='save()'>Send Resupply Order</span>
+			<span class="addBtn" ng-click='save()'>{{order.sent | iif : "Resend Resupply Order" : "Send Resupply Order"}}</span>
 		</section>
 	</div>
 	<hr />

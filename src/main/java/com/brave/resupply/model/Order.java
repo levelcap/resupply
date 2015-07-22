@@ -5,22 +5,24 @@ import org.springframework.data.annotation.Id;
 import java.util.Set;
 
 public class Order {
-	@Id
-	private String id;
-	private String date;
-	private String userId;
+    @Id
+    private String id;
+    private String date;
+    private String userId;
     private Set<ItemRequest> requestedItems;
     private boolean filled = false;
+    private boolean sent = false;
 
-	public Order() {
-	}
+    public Order() {
+    }
 
-	public Order(String date, String userId, Set<ItemRequest> requestedItems) {
-		this.date = date;
-		this.userId = userId;
+    public Order(String date, String userId, Set<ItemRequest> requestedItems) {
+        this.date = date;
+        this.userId = userId;
         this.requestedItems = requestedItems;
         this.filled = false;
-	}
+        this.sent = false;
+    }
 
     public String getId() {
         return id;
@@ -61,13 +63,21 @@ public class Order {
     public void removeItemRequest(ItemRequest item) {
         this.requestedItems.remove(item);
     }
-    
+
     public boolean isFilled() {
-    	return filled;
+        return filled;
     }
-    
+
     public void setFilled(boolean filled) {
-    	this.filled = filled;
+        this.filled = filled;
+    }
+
+    public boolean isSent() {
+        return sent;
+    }
+
+    public void setSent(boolean sent) {
+        this.sent = sent;
     }
 
     @Override

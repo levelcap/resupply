@@ -81,6 +81,7 @@ public class OrderController extends BaseController {
             User currentUser = getCurrentUser();
             order.setUserId(currentUser.getId());
             order.setDate(DateUtil.getTodayDateString());
+            order.setSent(true);
             orderRepository.save(order);
             emailService.sendResupplyOrderEmail(order, currentUser);
             emailService.sendResupplyOrderConfirmationEmail(order, currentUser);
