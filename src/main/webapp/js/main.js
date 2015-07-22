@@ -90,7 +90,7 @@ resupplyApp.controller('ManageOrderController', function ($scope, $http, $sce) {
     }
 
 
-    $scope.singleSave = function (order) {
+    $scope.saveSingle = function (order) {
         console.log(order);
     }
 });
