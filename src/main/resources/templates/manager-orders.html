@@ -44,7 +44,7 @@
     <section id="orderSection" ng-controller="ManageOrderController">
         <h2>Resupply Orders for {{orders[0].date}}</h2>
         <section class="orderDisplay" ng-repeat="order in orders">
-            <h4>Resupply for {{order.user.location}} submitted by {{order.user.name}}</h4>
+            <h4>Resupply for {{order.user.location}} submitted by {{order.user.email}}</h4>
             <div>
                 <table>
                     <tr>
