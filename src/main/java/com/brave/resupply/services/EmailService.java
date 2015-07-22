@@ -1,5 +1,6 @@
 package com.brave.resupply.services;
 
+import com.brave.resupply.model.ItemRequest;
 import com.brave.resupply.model.Order;
 import com.brave.resupply.model.User;
 import com.postmark.java.NameValuePair;
@@ -26,7 +27,6 @@ public class EmailService {
 
     public void sendReminderEmail(String userEmail) {
         List<NameValuePair> headers = new ArrayList<NameValuePair>();
-        headers.add(new NameValuePair("HEADER", "test"));
 
         PostmarkMessage message = new PostmarkMessage("resupply-reminder@cloverfoodlab.com",
                 userEmail,
@@ -49,14 +49,18 @@ public class EmailService {
 
     public void sendResupplyOrderEmail(Order order, User user) {
         List<NameValuePair> headers = new ArrayList<NameValuePair>();
-        headers.add(new NameValuePair("HEADER", "test"));
+        StringBuffer messageBody = new StringBuffer();
+        messageBody.append("Resupply Order for ").append(user.getLocation()).append(" submitted by ").append(user.getEmail()).append("\n\n");
 
-        PostmarkMessage message = new PostmarkMessage("cohen.davids@gmail.com",
+        for (ItemRequest itemRequest : order.getRequestedItems()) {
+            messageBody.append(itemRequest.getNumber()).append(" ").append(itemRequest.getSizeType()).append("(s) of ").append(itemRequest.getItem().getName()).append("\n");
+        }
+        PostmarkMessage message = new PostmarkMessage("dcohen@infinio.com",
                 "cohen.davids@gmail.com",
-                "cohen.davids@gmail.com",
+                "dcohen@infinio.com",
                 null,
                 order.getDate() + " Resupply Order Submitted by " + user.getEmail() + " at " + user.getLocation(),
-                "Resupply order goes here",
+                messageBody.toString(),
                 false,
                 null,
                 headers);
