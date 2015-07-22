@@ -55,31 +55,14 @@ resupplyApp.controller('OrderController', function ($scope, $http, $sce) {
         });
 
     $scope.save = function () {
-        var saveCharacter = $scope.char;
-        if ($scope.htmlcontent !== null && $scope.htmlcontent !== "") {
-        	saveCharacter.description = $scope.htmlcontent.toString();
-        } else {
-        	saveCharacter.description = "";
-        }
-        saveCharacter.id = $("#objId").val();
-        $http.post('/api/location/' + id, saveCharacter).
+        var saveOrder = $scope.order;
+        $http.post('/api/order/', saveOrder).
             success(function (data, status, headers, config) {
-            	alert("Save success");
+            	alert("Resupply sent");
             }).
             error(function (data, status, headers, config) {
-            	alert("Save failure");
+            	alert("Problem sending resupply");
             });
-    }
-    
-    $scope.delete = function () {
-    	$http.delete('/api/location/' + id).
-        success(function (data, status, headers, config) {
-        	alert("Delete success");
-        	window.location.href = "/user";
-        }).
-        error(function (data, status, headers, config) {
-        	alert("Delete failure");
-        });
     }
 });
 

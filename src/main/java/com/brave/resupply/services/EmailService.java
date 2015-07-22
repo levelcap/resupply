@@ -1,5 +1,7 @@
 package com.brave.resupply.services;
 
+import com.brave.resupply.model.Order;
+import com.brave.resupply.model.User;
 import com.postmark.java.NameValuePair;
 import com.postmark.java.PostmarkClient;
 import com.postmark.java.PostmarkException;
@@ -32,6 +34,29 @@ public class EmailService {
                 null,
                 "Resupply Reminder",
                 "You have not yet submitted a resupply request today.  Try to get it in before 2PM!",
+                false,
+                null,
+                headers);
+
+        PostmarkClient client = new PostmarkClient(serverToken);
+
+        try {
+            client.sendMessage(message);
+        } catch (PostmarkException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+    public void sendResupplyOrderEmail(Order order, User user) {
+        List<NameValuePair> headers = new ArrayList<NameValuePair>();
+        headers.add(new NameValuePair("HEADER", "test"));
+
+        PostmarkMessage message = new PostmarkMessage("cohen.davids@gmail.com",
+                "resupply-reminder@cloverfoodlab.com",
+                "resupply-reminder@cloverfoodlab.com",
+                null,
+                order.getDate() + " Resupply Order Submitted by " + user.getEmail() + " at " + user.getLocation(),
+                order.toString(),
                 false,
                 null,
                 headers);

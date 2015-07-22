@@ -4,6 +4,7 @@ import com.brave.resupply.model.Order;
 import com.brave.resupply.model.User;
 import com.brave.resupply.repository.OrderRepository;
 import com.brave.resupply.repository.UserRepository;
+import com.brave.resupply.services.EmailService;
 import com.brave.resupply.services.OrderService;
 import com.brave.resupply.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class OrderController extends BaseController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private EmailService emailService;
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -77,6 +81,7 @@ public class OrderController extends BaseController {
             order.setUserId(currentUser.getId());
             order.setDate(DateUtil.getTodayDateString());
             orderRepository.save(order);
+            emailService.sendResupplyOrderEmail(order, currentUser);
             return new ResponseEntity<Order>(order, HttpStatus.OK);
         } else {
             return new ResponseEntity<Order>(HttpStatus.UNAUTHORIZED);
