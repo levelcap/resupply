@@ -50,10 +50,7 @@ resupplyApp.controller('OrderController', function ($scope, $http, $sce) {
         		$scope.order = {};
         	} else {
             	$scope.order = data[0];
-        	}	
-            if (null == $scope.char.url) {
-            	$scope.char.url = "/images/blank.png";
-            }
+        	}
             $scope.disabled = false;
         });
 
