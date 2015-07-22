@@ -3,12 +3,14 @@ package com.brave.resupply.services;
 import com.brave.resupply.model.ItemRequest;
 import com.brave.resupply.model.Order;
 import com.brave.resupply.model.User;
+import com.brave.resupply.repository.UserRepository;
 import com.postmark.java.NameValuePair;
 import com.postmark.java.PostmarkClient;
 import com.postmark.java.PostmarkException;
 import com.postmark.java.PostmarkMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ public class EmailService {
     static {
         serverToken = System.getenv("POSTMARK_API_TOKEN");
     }
+
+    @Autowired
+    UserRepository userRepository;
 
     public void sendReminderEmail(String userEmail) {
         List<NameValuePair> headers = new ArrayList<NameValuePair>();
@@ -91,6 +96,36 @@ public class EmailService {
                 "dcohen@infinio.com",
                 null,
                 order.getDate() + " You have submitted an order for resupply",
+                messageBody.toString(),
+                false,
+                null,
+                headers);
+
+        PostmarkClient client = new PostmarkClient(serverToken);
+
+        try {
+            client.sendMessage(message);
+        } catch (PostmarkException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+    public void sendResupplyOrderFilledEmail(Order order) {
+        List<NameValuePair> headers = new ArrayList<NameValuePair>();
+        StringBuffer messageBody = new StringBuffer();
+        messageBody.append("Your resupply order has been filled: ").append("\n\n");
+        User user = userRepository.findOne(order.getUserId());
+
+        for (ItemRequest itemRequest : order.getRequestedItems()) {
+            if (itemRequest.getNumber() > 0 && itemRequest.getSizeType() != null) {
+                messageBody.append(itemRequest.getNumber()).append(" ").append(itemRequest.getSizeType()).append("(s) of ").append(itemRequest.getItem().getName()).append("\n");
+            }
+        }
+        PostmarkMessage message = new PostmarkMessage("dcohen@infinio.com",
+                user.getEmail(),
+                "dcohen@infinio.com",
+                null,
+                order.getDate() + " resupply order has been filled",
                 messageBody.toString(),
                 false,
                 null,
