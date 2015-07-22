@@ -34,7 +34,7 @@ public class EmailService {
         List<NameValuePair> headers = new ArrayList<NameValuePair>();
 
         PostmarkMessage message = new PostmarkMessage("dcohen@infinio.com",
-                user.getEmail(),
+                userEmail,
                 "dcohen@infinio.com",
                 null,
                 "Resupply Reminder",
