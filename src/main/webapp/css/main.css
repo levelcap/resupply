@@ -48,6 +48,18 @@
     padding-left: 15px;
 }
 
+.orderDisplay h4 {
+    padding: 10px;
+    margin: 0px;
+    background-color: #337ab7;
+    color: white;
+}
+
+.orderDisplay {
+    border: 1px solid #E0E0E0;
+    margin-top: 10px;
+}
+
 .addBtn {
 	border: 1px solid black;
 	background-color: #337ab7;

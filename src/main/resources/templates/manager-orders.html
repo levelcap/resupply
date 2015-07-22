@@ -41,30 +41,26 @@
     <!-- /.container-fluid -->
 </nav>
 <div class="container" ng-app="resupplyApp">
-    <section id="itemSection" ng-controller="ManageOrderController">
-        <div>Resupply Orders for {{orders[0].date}}</div>
-        <div id="accordion">
-            <section ng-repeat="order in orders">
-                <h3>Resupply for {{order.user.location}} submitted by {{order.user.name}}</h3>
-
-                <div>
-                    <table>
-                        <tr>
-                            <td><b>Number</b></td>
-                            <td><b>Item</b></td>
-                            <td><b>Par</b></td>
-                        </tr>
-                        <tr ng-repeat="item in order.requestedItems">
-                            <td>{{item.number}}</td>
-                            <td>{{item.item.name}}</td>
-                            <td>{{item.sizeType}}</td>
-                        </tr>
-                    </table>
-                </div>
-            </section>
-        </div>
-        <br/>
-        <span class="addBtn" ng-click='save()'>Save Items</span>
+    <section id="orderSection" ng-controller="ManageOrderController">
+        <h2>Resupply Orders for {{orders[0].date}}</h2>
+        <section class="orderDisplay" ng-repeat="order in orders">
+            <h4>Resupply for {{order.user.location}} submitted by {{order.user.name}}</h4>
+            <div>
+                <table>
+                    <tr>
+                        <td><b>Number</b></td>
+                        <td><b>Item</b></td>
+                        <td><b>Par</b></td>
+                    </tr>
+                    <tr ng-repeat="item in order.requestedItems">
+                        <td>{{item.number}}</td>
+                        <td>{{item.item.name}}</td>
+                        <td>{{item.sizeType}}</select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </section>
     </section>
 </div>
 <hr/>
@@ -73,12 +69,5 @@
 </footer>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script>
-    $(function () {
-        $("#accordion").accordion();
-    });
-</script>
 </body>
 </html>
