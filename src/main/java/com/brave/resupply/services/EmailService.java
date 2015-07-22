@@ -1,16 +1,15 @@
 package com.brave.resupply.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import com.postmark.java.NameValuePair;
 import com.postmark.java.PostmarkClient;
 import com.postmark.java.PostmarkException;
 import com.postmark.java.PostmarkMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dcohen on 7/21/15.

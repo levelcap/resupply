@@ -1,18 +1,17 @@
 package com.brave.resupply.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.brave.resupply.model.Order;
+import com.brave.resupply.model.User;
+import com.brave.resupply.repository.OrderRepository;
+import com.brave.resupply.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.brave.resupply.model.Order;
-import com.brave.resupply.model.User;
-import com.brave.resupply.repository.OrderRepository;
-import com.brave.resupply.repository.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReminderService {
