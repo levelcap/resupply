@@ -95,4 +95,14 @@ public class OrderController extends BaseController {
             return new ResponseEntity<Order>(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @RequestMapping(value = "saveManaged", method = RequestMethod.POST)
+    public HttpEntity<List<Order>> saveOrder(@RequestBody List<Order> orders) {
+        if (isLoggedIn()) {
+            orderRepository.save(orders);
+            return new ResponseEntity<List<Order>>(orders, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<List<Order>>(HttpStatus.UNAUTHORIZED);
+        }
+    }
 }
