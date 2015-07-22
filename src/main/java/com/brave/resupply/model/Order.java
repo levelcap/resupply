@@ -1,6 +1,7 @@
 package com.brave.resupply.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Set;
 
@@ -12,6 +13,9 @@ public class Order {
     private Set<ItemRequest> requestedItems;
     private boolean filled = false;
     private boolean sent = false;
+
+    @Transient
+    private User user;
 
     public Order() {
     }
@@ -78,6 +82,14 @@ public class Order {
 
     public void setSent(boolean sent) {
         this.sent = sent;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

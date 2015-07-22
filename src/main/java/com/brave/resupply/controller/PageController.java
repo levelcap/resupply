@@ -50,6 +50,16 @@ public class PageController extends BaseController {
         }
     }
 
+    @RequestMapping("/order")
+    public String manageOrders(Model model) {
+        model.addAttribute("loggedIn", isLoggedIn());
+        if (isLoggedIn()) {
+            return "manager-orders";
+        } else {
+            return "login";
+        }
+    }
+
     @RequestMapping("/new")
     public String newCharacter(Model model) {
         model.addAttribute("loggedIn", isLoggedIn());

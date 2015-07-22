@@ -41,7 +41,7 @@
 	</nav>
 	<div class="container" ng-app="resupplyApp">
 		<section id="orderSection" ng-controller="OrderController">
-			<div>Resupply Order for {{order.date}}</div>
+			<h3>Resupply Order for {{order.date}} {{order.filled | iif : "has been filled" : "has not been filled"}}</h3>
             <table>
                 <tr>
                     <td><b>Number</b></td>

@@ -6,6 +6,7 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"/>
     <link href="css/main.css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script
             src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
     <script src="/js/main.js"></script>
@@ -40,21 +41,28 @@
     <!-- /.container-fluid -->
 </nav>
 <div class="container" ng-app="resupplyApp">
-    <section id="itemSection" ng-controller="OrderController">
-        <div>Resupply Order for {{order.date}}</div>
-        <table>
-            <tr>
-                <td><b>Number</b></td>
-                <td><b>Item</b></td>
-                <td><b>Par</b></td>
-            </tr>
-            <tr ng-repeat="item in order.requestedItems">
-                <td><input ng-model="item.number"/></td>
-                <td>{{item.item.name}}</td>
-                <td><select ng-model="item.sizeType" ng-options="sizeType for sizeType in item.item.sizeTypes"></select>
-                </td>
-            </tr>
-        </table>
+    <section id="itemSection" ng-controller="ManageOrderController">
+        <div>Resupply Orders for {{orders[0].date}}</div>
+        <div id="accordion">
+            <section ng-repeat="order in orders">
+                <h3>Resupply for {{order.user.location}} submitted by {{order.user.name}}</h3>
+
+                <div>
+                    <table>
+                        <tr>
+                            <td><b>Number</b></td>
+                            <td><b>Item</b></td>
+                            <td><b>Par</b></td>
+                        </tr>
+                        <tr ng-repeat="item in order.requestedItems">
+                            <td>{{item.number}}</td>
+                            <td>{{item.item.name}}</td>
+                            <td>{{item.sizeType}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </div>
         <br/>
         <span class="addBtn" ng-click='save()'>Save Items</span>
     </section>
@@ -65,5 +73,12 @@
 </footer>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#accordion").accordion();
+    });
+</script>
 </body>
 </html>

@@ -67,6 +67,30 @@ resupplyApp.controller('OrderController', function ($scope, $http, $sce) {
     }
 });
 
+resupplyApp.controller('ManageOrderController', function ($scope, $http, $sce) {
+    $http.get('/api/order/').
+        success(function (data) {
+            if (data == null || data == "") {
+                $scope.orders = {};
+            } else {
+                $scope.orders = data;
+            }
+            $scope.disabled = false;
+        });
+
+    $scope.save = function () {
+        var saveOrder = $scope.order;
+        $http.post('/api/order/', saveOrder).
+            success(function (data, status, headers, config) {
+                $scope.order.sent = true;
+                alert("Resupply sent");
+            }).
+            error(function (data, status, headers, config) {
+                alert("Problem sending resupply");
+            });
+    }
+});
+
 resupplyApp.controller('SettingController', function ($scope, $http, $sce) {
 	var id= $("#objId").val();
     $http.get('/api/setting/' + id).
