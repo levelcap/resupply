@@ -45,7 +45,7 @@
 			<div ng-repeat="item in order.requestedItems">
 				<input ng-model="item.number"/> {{item.item.name}}
 				<input type="checkbox" ng-model="item.available" />
-				<select ng-model="item.sizeType" ng-options="sizeType in item.item.sizeTypes"></select>
+				<select ng-model="item.sizeType" ng-options="sizeType for sizeType in item.item.sizeTypes"></select>
 			</div>
 			<br/>
 			<span class="addBtn" ng-click='save()'>Save Items</span>
