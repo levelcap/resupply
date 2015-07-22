@@ -100,7 +100,9 @@ public class OrderController extends BaseController {
     public HttpEntity<Order> saveManagedOrder(@RequestBody Order order) {
         if (isLoggedIn()) {
             orderRepository.save(order);
-            emailService.sendResupplyOrderFilledEmail(order);
+            if (order.isFilled()) {
+                emailService.sendResupplyOrderFilledEmail(order);
+            }
             return new ResponseEntity<Order>(order, HttpStatus.OK);
         } else {
             return new ResponseEntity<Order>(HttpStatus.UNAUTHORIZED);
