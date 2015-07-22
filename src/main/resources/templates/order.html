@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Resupply Manager - Place Resupply Order</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link href="css/main.css" rel="stylesheet" media="screen" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+<script src="/js/main.js"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Resupply Manager</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/">Home<span class="sr-only">(current)</span></a></li>
+					<li><a href="/items">Manage Items</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<div class="container" ng-app="resupplyApp">
+		<section id="itemSection" ng-controller="OrderController">
+			<div>Resupply Order for {{order.date}}</div>
+			<div ng-repeat="item in order.requestedItems">
+				<input ng-model="item.number"/> {{item.item.name}}
+				<input type="checkbox" ng-model="item.available" />
+				<select ng-model="item.sizeType" ng-options="sizeType in item.item.sizeTypes"></select>
+			</div>
+			<br/>
+			<span class="addBtn" ng-click='save()'>Save Items</span>
+		</section>
+	</div>
+	<hr />
+	<footer>
+		<p>&copy; Brave Studios 2015</p>
+	</footer>
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
