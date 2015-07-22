@@ -46,7 +46,6 @@
         <section class="orderDisplay" ng-repeat="order in orders">
             <div class="orderDisplayHeader">
                 <h4>Resupply for {{order.user.location}} submitted by {{order.user.email}}</h4>
-                <span class="addBtn green" ng-click='order.filled = !order.filled; save();'>{{order.filled | iif : "Filled" : "Unfilled"}}</span>
             </div>
             <div>
                 <table>
