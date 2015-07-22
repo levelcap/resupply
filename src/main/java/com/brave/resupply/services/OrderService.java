@@ -80,6 +80,8 @@ public class OrderService {
             }
             order.setRequestedItems(itemRequests);
         }
+
+        orderRepository.save(orders);
     }
 
 }
