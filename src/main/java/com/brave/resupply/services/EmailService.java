@@ -53,7 +53,9 @@ public class EmailService {
         messageBody.append("Resupply Order for ").append(user.getLocation()).append(" submitted by ").append(user.getEmail()).append("\n\n");
 
         for (ItemRequest itemRequest : order.getRequestedItems()) {
-            messageBody.append(itemRequest.getNumber()).append(" ").append(itemRequest.getSizeType()).append("(s) of ").append(itemRequest.getItem().getName()).append("\n");
+            if (itemRequest.getNumber() > 0 && itemRequest.getSizeType() != null) {
+                messageBody.append(itemRequest.getNumber()).append(" ").append(itemRequest.getSizeType()).append("(s) of ").append(itemRequest.getItem().getName()).append("\n");
+            }
         }
         PostmarkMessage message = new PostmarkMessage("dcohen@infinio.com",
                 user.getEmail(),
