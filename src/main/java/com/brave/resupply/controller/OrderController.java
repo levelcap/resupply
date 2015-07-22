@@ -44,15 +44,16 @@ public class OrderController extends BaseController {
         List<Order> orders = new ArrayList<Order>();
         if (user.getRole() == User.UserRole.MANAGER) {
             orders = orderRepository.findByDate(DateUtil.getTodayDateString());
-            for (Order order : orders) {
-                User orderUser = userRepository.findOne(order.getUserId());
-                order.setUser(orderUser);
-            }
         } else {
             orders = orderRepository.findByUserIdAndDate(user.getId(), DateUtil.getTodayDateString());
             if (null == orders || orders.size() <= 0) {
                 orders.add(orderService.getBlankOrder(user));
             }
+        }
+
+        for (Order order : orders) {
+            User orderUser = userRepository.findOne(order.getUserId());
+            order.setUser(orderUser);
         }
         return new ResponseEntity<List<Order>>(orders, HttpStatus.OK);
     }

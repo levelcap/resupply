@@ -60,6 +60,10 @@
     margin-top: 10px;
 }
 
+.orderDisplay table {
+    margin: 10px;
+}
+
 .addBtn {
 	border: 1px solid black;
 	background-color: #337ab7;
