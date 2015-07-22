@@ -43,22 +43,17 @@ resupplyApp.controller('ItemController', function ($scope, $http, $sce) {
     }
 });
 
-resupplyApp.controller('LocationController', function ($scope, $http, $sce) {
-	var id= $("#objId").val();
-
-    $http.get('/api/location/' + id).
+resupplyApp.controller('OrderController', function ($scope, $http, $sce) {
+    $http.get('/api/order/').
         success(function (data) {
         	if (data == null || data == "") {
-        		$scope.char = {};
+        		$scope.order = {};
         	} else {
-            	$scope.char = data;
+            	$scope.order = data[0];
         	}	
             if (null == $scope.char.url) {
             	$scope.char.url = "/images/blank.png";
             }
-            $scope.char.description = $sce.trustAsHtml($scope.char.description);
-            $scope.orightml = $scope.char.description;
-            $scope.htmlcontent = $scope.orightml;
             $scope.disabled = false;
         });
 

@@ -1,5 +1,6 @@
 package com.brave.resupply.controller;
 
+import com.brave.resupply.model.User;
 import com.brave.resupply.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,22 @@ public class PageController extends BaseController {
             return "login";
         }
     }
-    
+
+    @RequestMapping("/order")
+    public String order(Model model) {
+        model.addAttribute("loggedIn", isLoggedIn());
+        if (isLoggedIn()) {
+            User user = getCurrentUser();
+            if (user.getRole() == User.UserRole.MANAGER) {
+                return "manager-orders";
+            } else {
+                return "order";
+            }
+        } else {
+            return "login";
+        }
+    }
+
     @RequestMapping("/new")
     public String newCharacter(Model model) {
         model.addAttribute("loggedIn", isLoggedIn());
