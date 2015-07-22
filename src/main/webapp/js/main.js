@@ -91,7 +91,13 @@ resupplyApp.controller('ManageOrderController', function ($scope, $http, $sce) {
 
 
     $scope.saveSingle = function (order) {
-        console.log(order);
+        $http.post('/api/order/saveManaged', order).
+            success(function (data, status, headers, config) {
+                alert("Resupply status updated");
+            }).
+            error(function (data, status, headers, config) {
+                alert("Problem saving resupply status");
+            });
     }
 });
 
