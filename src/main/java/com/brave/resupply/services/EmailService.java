@@ -56,10 +56,39 @@ public class EmailService {
             messageBody.append(itemRequest.getNumber()).append(" ").append(itemRequest.getSizeType()).append("(s) of ").append(itemRequest.getItem().getName()).append("\n");
         }
         PostmarkMessage message = new PostmarkMessage("dcohen@infinio.com",
-                "cohen.davids@gmail.com",
+                user.getEmail(),
                 "dcohen@infinio.com",
                 null,
                 order.getDate() + " Resupply Order Submitted by " + user.getEmail() + " at " + user.getLocation(),
+                messageBody.toString(),
+                false,
+                null,
+                headers);
+
+        PostmarkClient client = new PostmarkClient(serverToken);
+
+        try {
+            client.sendMessage(message);
+        } catch (PostmarkException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+    public void sendResupplyOrderConfirmationEmail(Order order, User user) {
+        List<NameValuePair> headers = new ArrayList<NameValuePair>();
+        StringBuffer messageBody = new StringBuffer();
+        messageBody.append("You have submitted the following order for resupply.").append("\n\n");
+
+        for (ItemRequest itemRequest : order.getRequestedItems()) {
+            if (itemRequest.getNumber() > 0 && itemRequest.getSizeType() != null) {
+                messageBody.append(itemRequest.getNumber()).append(" ").append(itemRequest.getSizeType()).append("(s) of ").append(itemRequest.getItem().getName()).append("\n");
+            }
+        }
+        PostmarkMessage message = new PostmarkMessage("dcohen@infinio.com",
+                user.getEmail(),
+                "dcohen@infinio.com",
+                null,
+                order.getDate() + " You have submitted an order for resupply",
                 messageBody.toString(),
                 false,
                 null,

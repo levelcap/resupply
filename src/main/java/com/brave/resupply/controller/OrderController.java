@@ -1,5 +1,6 @@
 package com.brave.resupply.controller;
 
+import com.brave.resupply.model.ItemRequest;
 import com.brave.resupply.model.Order;
 import com.brave.resupply.model.User;
 import com.brave.resupply.repository.OrderRepository;
@@ -82,6 +83,7 @@ public class OrderController extends BaseController {
             order.setDate(DateUtil.getTodayDateString());
             orderRepository.save(order);
             emailService.sendResupplyOrderEmail(order, currentUser);
+            emailService.sendResupplyOrderConfirmationEmail(order, currentUser);
             return new ResponseEntity<Order>(order, HttpStatus.OK);
         } else {
             return new ResponseEntity<Order>(HttpStatus.UNAUTHORIZED);
