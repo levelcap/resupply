@@ -33,9 +33,9 @@ public class EmailService {
     public void sendReminderEmail(String userEmail) {
         List<NameValuePair> headers = new ArrayList<NameValuePair>();
 
-        PostmarkMessage message = new PostmarkMessage("resupply-reminder@cloverfoodlab.com",
-                userEmail,
-                "resupply-reminder@cloverfoodlab.com",
+        PostmarkMessage message = new PostmarkMessage("dcohen@infinio.com",
+                user.getEmail(),
+                "dcohen@infinio.com",
                 null,
                 "Resupply Reminder",
                 "You have not yet submitted a resupply request today.  Try to get it in before 2PM!",

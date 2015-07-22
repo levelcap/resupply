@@ -4,6 +4,7 @@ import com.brave.resupply.model.Order;
 import com.brave.resupply.model.User;
 import com.brave.resupply.repository.OrderRepository;
 import com.brave.resupply.repository.UserRepository;
+import com.brave.resupply.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ReminderService {
 	@Autowired
 	EmailService emailService;
 
-	@Scheduled(cron = "0 0 13 * * *")
+	@Scheduled(cron = "0 0 13 * * *", zone="America/New_York")
 	public void sendResupplyReminder() {
 		LOGGER.info("Sending resupply reminders.");
 		try {
@@ -36,14 +37,15 @@ public class ReminderService {
 			
 			for (User user : users) {
 				//Check if this user has an entry for today
-				List<Order> orders = orderRepository.findByUserIdOrderByDateDesc(user.getId());
-				if (null != orders && orders.size() > 0) {
-					//TODO: Check if there is a resupply order that has been saved for today
-				}
+				List<Order> orders = orderRepository.findByUserIdAndDate(user.getId(), DateUtil.getTodayDateString());
+				if (null == orders || orders.size() > 0) {
+					missingResupplyUsers.add(user);
+				} else if (!orders.get(0).isSent()) {
+                    missingResupplyUsers.add(user);
+                }
 			}
 			
 			for (User user : missingResupplyUsers) {
-				//TODO: Send reminder email to those filthy delinquents
 				emailService.sendReminderEmail(user.getEmail());
 			}
 			
