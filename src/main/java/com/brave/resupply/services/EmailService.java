@@ -4,6 +4,7 @@ import com.brave.resupply.model.ItemRequest;
 import com.brave.resupply.model.Order;
 import com.brave.resupply.model.User;
 import com.brave.resupply.repository.UserRepository;
+import com.brave.resupply.util.DateUtil;
 import com.postmark.java.NameValuePair;
 import com.postmark.java.PostmarkClient;
 import com.postmark.java.PostmarkException;
@@ -96,6 +97,39 @@ public class EmailService {
                 "dcohen@infinio.com",
                 null,
                 order.getDate() + " You have submitted an order for resupply",
+                messageBody.toString(),
+                false,
+                null,
+                headers);
+
+        PostmarkClient client = new PostmarkClient(serverToken);
+
+        try {
+            client.sendMessage(message);
+        } catch (PostmarkException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+    public void sendUnfilledOrderReminderEmail(List<Order> orders) {
+        List<NameValuePair> headers = new ArrayList<NameValuePair>();
+        StringBuffer messageBody = new StringBuffer();
+        messageBody.append("There are unfilled resupply orders for today: .").append("\n\n");
+
+        for (Order order : orders) {
+            User user = userRepository.findOne(order.getUserId());
+            messageBody.append("Resupply Order for ").append(user.getLocation()).append(" submitted by ").append(user.getEmail()).append("\n\n");
+            for (ItemRequest itemRequest : order.getRequestedItems()) {
+                if (itemRequest.getNumber() > 0 && itemRequest.getSizeType() != null) {
+                    messageBody.append(itemRequest.getNumber()).append(" ").append(itemRequest.getSizeType()).append("(s) of ").append(itemRequest.getItem().getName()).append("\n");
+                }
+            }
+        }
+        PostmarkMessage message = new PostmarkMessage("dcohen@infinio.com",
+                "cohen.davids@gmail.com",
+                "dcohen@infinio.com",
+                null,
+                DateUtil.getTodayDateString() + " - Unfilled Resupply Orders",
                 messageBody.toString(),
                 false,
                 null,

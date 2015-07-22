@@ -53,4 +53,16 @@ public class ReminderService {
 			LOGGER.error(e.getMessage(), e);
 		}
 	}
+
+    @Scheduled(cron = "0 0 17 * * *", zone="America/New_York")
+    public void sendUnfilledOrderReminder() {
+        LOGGER.info("Sending unfilled resupply order reminders.");
+        try {
+            List<Order> orders = orderRepository.findByDateAndFilledFalseAndSentTrue(DateUtil.getTodayDateString());
+            emailService.sendUnfilledOrderReminderEmail(orders);
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
 }
